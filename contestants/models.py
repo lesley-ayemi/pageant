@@ -13,7 +13,7 @@ class ContestantForm(models.Model):
     phone_no = models.CharField(max_length=20)
     reg_email = models.CharField(max_length=100)
     address = models.CharField(max_length=255, null=True, blank=True)
-    reg_type = models.ForeignKey(to=ContestType)
+    reg_type = models.ForeignKey(to=ContestType, on_delete=models.CASCADE)
     reg_image = models.FileField(upload_to='uploads/registration_images/', null=True, blank=True)
     amount = models.PositiveIntegerField(default=500)
     likes = models.PositiveIntegerField(default=0)

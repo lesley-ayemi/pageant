@@ -20,10 +20,10 @@ A Pageant beauty contest for voting and registration
 
 ### Executing program
 
-* Python -m venv env
-* Source env/bina/activate
+* python3 -m venv env
+* source env/bina/activate
 * cp env.example env
-* Pip install -r requirements.txt
+* pip install -r requirements.txt
 * setup a postgresql database and add to your env db_name
 
 ```
