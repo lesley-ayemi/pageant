@@ -1,6 +1,6 @@
 {% load static %}
 
-{% if 'contestant/' in request.path %}
+{% if 'all-contestants/' in request.path %}
 <header id="header" class="header white-menu navbar-dark">
 
 {% else %}
@@ -12,7 +12,7 @@
 
         <!-- MOBILE HEADER -->
         <div class="wsmobileheader clearfix">	  	
-            <span class="smllogo"><img src="images/logo-01.png" alt="mobile-logo"/></span>
+            <span class="smllogo"><img src="{% static 'images/logo-01.png' %}" alt="mobile-logo"/></span>
             <a id="wsnavtoggle" class="wsanimated-arrow"><span></span></a>	
             <a href="tel:123456789" class="callusbtn ico-20"><span class="flaticon-phone-call-1"></span></a>
          </div>
@@ -24,8 +24,8 @@
 
 
                 <!-- HEADER LOGO -->
-                <div class="desktoplogo"><a href="#hero-3" class="logo-black"><img src="{% static 'epitome-removebg(1).png' %}" alt="header-logo"></a></div>
-                <div class="desktoplogo"><a href="#hero-3" class="logo-white"><img src="{% static 'epitome-removebg(1).png' %}" alt="header-logo"></a></div>
+                <div class="desktoplogo"><a href="/" class="logo-black"><img src="{% static 'epitome-removebg(1).png' %}" alt="header-logo"></a></div>
+                <div class="desktoplogo"><a href="/" class="logo-white"><img src="{% static 'epitome-removebg(1).png' %}" alt="header-logo"></a></div>
 
 
                 <!-- MAIN MENU -->
@@ -34,55 +34,16 @@
 
 
                         <!-- DROPDOWN MENU -->
-                          <li aria-haspopup="true"><a href="#">About <span class="wsarrow"></span></a>
-                            <ul class="sub-menu">
-                                <li aria-haspopup="true"><a href="#about-3a">About Studio</a></li>
-                                <li aria-haspopup="true"><a href="#about-9">Why La Notte?</a></li>
-                                <li aria-haspopup="true"><a href="#promo-2">Our Promotions</a></li>
-                                <li aria-haspopup="true"><a href="#reviews-1">Testimonials</a></li>	
-                                <li aria-haspopup="true"><a href="#banner-5">Best Experience</a></li>
-                               </ul>
+                          <li aria-haspopup="true"><a href="{% url 'about' %}">About</a>
+    
                         </li>
 
-
-                        <!-- DROPDOWN MENU -->
-                        <li aria-haspopup="true"><a href="#">Pages <span class="wsarrow"></span></a>
-                            <div class="wsmegamenu clearfix halfmenu">
-                                  <div class="container-fluid">
-                                    <div class="row">
-
-                                        <!-- Links -->
-                                        <ul class="col-lg-6 link-list">	
-                                            <li><a href="about.html">About Us</a></li>							          
-                                            <li><a href="pricing.html">Services & Prices</a></li>
-                                            <li><a href="gallery.html">Gallery Page</a></li>
-                                            <li><a href="gift-cards.html">Gift Cards</a></li>  
-                                            <li><a href="team.html">Artists + Staff</a></li>  
-                                            <li><a href="careers.html">Careers</a></li> 
-                                        </ul>
-
-                                          <!-- Links -->
-                                        <ul class="col-lg-6 link-list">	
-                                            <li><a href="faqs.html">FAQs Page</a></li> 			               
-                                            <li><a href="blog-listing.html">Blog Listing</a></li>
-                                            <li><a href="single-post.html">Single Blog Post</a></li>
-                                            <li><a href="booking.html">Booking Page</a></li>
-                                            <li><a href="contacts.html">Contact Us</a></li>
-                                            <li><a href="location.html">Our Locations</a></li>
-                                        </ul>
-
-                                    </div>
-                                  </div>
-                            </div>
-                          </li>	<!-- END DROPDOWN MENU -->
-
+                        <li aria-haspopup="true"><a href="{% url 'all-contestants' %}">Contestants</a>
+    
+                        </li>
 
                         <!-- SIMPLE NAVIGATION LINK -->
                         <li class="nl-simple" aria-haspopup="true"><a href="#gallery-2">Gallery</a></li>
-
-
-                        <!-- SIMPLE NAVIGATION LINK -->
-                        <li class="nl-simple" aria-haspopup="true"><a href="#pricing-3">Menu</a></li>
 
 
                         <!-- SIMPLE NAVIGATION LINK -->
@@ -95,7 +56,7 @@
 
                         <!-- HEADER BUTTON -->
                         <li class="nl-simple" aria-haspopup="true">
-                            <a href="#footer-3" class="btn tra-white--btn rose--hover last-link">Contacts</a>
+                            <a href="{% url 'contact-us' %}" class="btn tra-white--btn rose--hover last-link">Contacts</a>
                         </li> 
 
 

@@ -3,6 +3,40 @@
 
 {% block content %}
 
+<section id="careers-page" class="bg-fixed page-hero-section division">
+    <div class="container">	
+
+
+        <!-- PAGE HERO TEXT -->
+        <div class="row justify-content-center">	
+            <div class="col-md-10 col-xl-8">
+                <div class="hero-txt text-center white--color">
+                    <h2 class="h2-xl">Vote Your Winner</h2>	
+                </div>	
+            </div>
+        </div>
+
+
+        <!-- BREADCRUMB -->
+        <div id="breadcrumb">
+            <div class="row d-flex align-items-center">					
+                <div class="col">
+                    <div class="breadcrumb-nav">
+                        <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Contestant {{contestant.name}}</li>
+                              </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div> 
+        </div>	<!-- END BREADCRUMB -->
+
+
+    </div>	   <!-- End container --> 
+</section>
+
 <section id="single-post" class="wide-80 inner-page-hero blog-page-section division">
     <div class="container">
          <div class="row">
@@ -17,11 +51,11 @@
                      <div class="single-post-title text-center">
 
                          <!-- Title -->
-                         <h2 class="h2-sm">Aliquam augue luctus laoreet purus an ipsum and libero</h2>
+                         <h2 class="h2-sm">Miss Epitome Presents To You</h2>
 
                          <!-- Post Tag -->
                         <p class="post-tag">
-                            by <a href="#">Amy Cooper-Gray</a> <span>|</span> Manicure, Trends <span>|</span> Oct 10, 2021
+                            <a href="javascript:void(0)">{{contestant.name}}</a> <span>|</span> Manicure, Trends <span>|</span> {{contestant.date_reg|date:"D d M Y"}}
                         </p>	
 
                     </div>
@@ -29,7 +63,7 @@
 
                     <!-- SINGLE POST IMAGE -->
                      <div class="blog-post-img mt-50 mb-50">
-                        <img class="img-fluid" src="{% static 'images/blog/900x500_1.jpg' %}" alt="blog-post-image">	
+                        <img class="img-fluid" src="{{contestant.reg_image.url}}" alt="blog-post-image">	
                     </div>
 
 
@@ -49,10 +83,21 @@
                         </p>
 
                         <!-- Small Title -->
-                        <h5 class="h5-lg">Praesent aliquet tempus</h5>
+                        <h5 class="h5-lg">Total Votes- {{contestant.votes}}</h5>
+
+                        <div class="row">
+                            <form action="{% url 'contestant' contestant.id %}" method="post">
+                                {% csrf_token %}
+                                <div class="col-md-6">
+                                    <button class="btn rose--btn black--hover" type="submit">Click To Vote</button>
+                                </div>
+
+                            </form>
+                            
+                        </div>
 
                         <!-- List -->
-                        <ul class="simple-list">
+                        <!-- <ul class="simple-list">
                             
                             <li class="list-item">
                                 <p class="p-lg">Donec dolor magna, suscipit in magna dignissim, porttitor hendrerit diam. Nunc gravida
@@ -73,67 +118,7 @@
                                </p>
                             </li>
 
-                        </ul>
-
-                        <!-- Small Title -->
-                        <h5 class="h5-lg">Lorem egestas a dolor posuere</h5>
-
-                        <!-- Text -->
-                        <p class="p-lg">Nulla tincidunt volutpat tincidunt. Pellentesque habitant morbi tristique senectus netus and
-                            malesuada famesa augue suscipit, luctus at neque purus neque dolor primis. Nemo sodales ipsam egestas volute
-                            turpis dolores ut aliquam quaerat sodales sapien congue augue
-                        </p>
-
-                        <!-- INNER IMAGES -->
-                        <div class="post-inner-img">
-                            <img class="img-fluid" src="{% static 'images/blog/900x450_1.jpg' %}" alt="blog-post-image">
-                        </div>
-
-                        <!-- Text -->
-                        <p class="p-lg"><span class="txt-700">Aliqum  mullam blandit tempor sapien </span> gravida donec magnis sapien 
-                           etiam sapien sem sagittis congue undo tempor gravida donec enim ipsum porta integer ipsum primis in cubilia 
-                           porta justo.
-                        </p>
-
-                        <!-- Text -->
-                        <p class="p-lg"><span class="txt-700">Maecenas gravida porttitor nunc, quis vehicula </span> magna luctus tempor.
-                            Quisque vel laoreet turpis urna augue, viverra a augue eget, dictum tempor diam. Sed pulvinar consectetur vel imperdiet dui varius viverra. Pellentesque ac massa lorem. Fusce eu cursus non nulla vitae massa placerat purus
-                            bibendum quis, aliquet elementum massa, et porttitor justo congue magna nihil impedit ligula ipsum porta integer.
-                        </p>
-
-                        <!-- Text -->
-                        <p class="p-lg">Sagittis congue augue egestas volutpat egestas magna suscipit egestas magna ipsum vitae purus
-                            efficitur ipsum primis in cubilia laoreet augue egestas luctus donec diam. Curabitur ac dapibus libero. Quisque
-                            eu tristique neque. Phasellus blandit tristique justo ut aliquam. Aliquam vitae molestie sapien justo, aliquet
-                            at molestie sed, venenatis nec purus. Aliquam eget lacinia elit. Vestibulum tincidunt tincidunt massa
-                        </p>
-
-                        <!-- INNER IMAGE -->
-                        <div class="post-inner-img">
-                            <div class="video-preview">
-
-                                <!-- Play Icon --> 
-                                <a class="video-popup1" href="https://www.youtube.com/embed/SZEflIVnhH8" savefrom_lm_index="0" savefrom_lm="1">				
-                                    <div class="video-btn video-btn-xl bg--rose ico-90">	
-                                        <div class="video-block-wrapper"><span class="flaticon-18"></span></div>
-                                    </div>
-                                </a><span style="padding: 0; margin: 0; margin-left: 5px;"><a href="http://savefrom.net/?url=https%3A%2F%2Fwww.youtube.com%2Fembed%2FSZEflIVnhH8&amp;utm_source=ff&amp;utm_medium=extensions&amp;utm_campaign=link_modifier" target="_blank" title="Get a direct link" style="background-image: url(&quot;data:image/gif;base64,R0lGODlhEAAQAOZ3APf39+Xl5fT09OPj4/Hx8evr6/3+/u7u7uDh4OPi497e3t7e3/z8/P79/X3GbuXl5ubl5eHg4WzFUfb39+Pj4lzGOV7LOPz7+/n6+vn5+ZTLj9/e387Ozt7f3/7+/vv7/ISbePn5+m/JV1nRKXmVbkCnKVrSLDqsCuDh4d/e3uDn3/z7/H6TdVeaV1uSW+bn5v39/eXm5eXm5kyHP/f39pzGmVy7J3yRd9/f3mLEKkXCHJbka2TVM5vaZn6Wdfn6+YG/c/r5+ZO/jeLi41aHTIeageLn4f39/vr6+kzNG2PVM5i+lomdf2CXYKHVmtzo2YXNeDqsBebl5uHh4HDKWN3g3kKqEH6WeZHTXIPKdnSPbv79/pfmbE7PHpe1l4O8dTO5DODg4VDLIlKUUtzo2J7SmEWsLlG4NJbFjkrJHP7+/VK5Nfz8+zmnC3KKa+Hg4OHh4Y63j/3+/eDg4Ojo6P///8DAwP///wAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACH5BAEAAHcALAAAAAAQABAAAAfWgHd2g4SFhYJzdYqLjIpzgx5bBgYwHg1Hk2oNDXKDFwwfDF5NLmMtcStsn4MhGT8YS04aGmU1QRhIGYMTADQAQlAODlloAMYTgwICRmRfVBISIkBPKsqDBAREZmcVFhYVayUz2IMHB1dWOmImI2lgUVrmgwUFLzdtXTxKSSduMfSD6Aik48MGlx05SAykM0gKhAAPAhTB0oNFABkPHg5KMIBCxzlMQFQZMGBIggSDpsCJgGDOmzkIUCAIM2dOhEEcNijQuQDHgg4KOqRYwMGOIENIB90JBAA7&quot;); background-repeat: no-repeat; width: 16px; height: 16px; display: inline-block; border: medium none; text-decoration: none; padding: 0px; position: relative;" savefrom_lm="1" savefrom_lm_is_link="1"></a></span>
-
-                                <!-- Preview Image --> 
-                                 <img class="img-fluid" src="images/blog/900x450_2.jpg" alt="video-preview">
-
-                            </div>
-                        </div>
-
-                        <!-- Small Title -->
-                        <h5 class="h5-lg">Egestas volute turpis dolores</h5>
-
-                        <!-- Text -->
-                        <p class="p-lg">Nulla tincidunt volutpat tincidunt. Pellentesque habitant morbi tristique senectus et netus and
-                           malesuada famesa augue suscipit, luctus at neque purus neque dolor primis. Nemo sodales ipsam egestas volute 
-                           and turpis dolores ut aliquam quaerat sodales sapien congue augue ac dapibus libero quisque tristique
-                        </p>
-
+                        </ul> -->
 
                     </div>	<!-- END SINGLE POST TEXT -->
 

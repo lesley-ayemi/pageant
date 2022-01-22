@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<section id="team-page" class="bg-fixed page-hero-section division">
+    <div class="container">
+        <div class="row justify-content-center">	
+            <div class="col-md-10 col-xl-8">
+                <div class="hero-txt text-center white--color">
+                    <h2 class="h2-xl">Our Contestants</h2>	
+                </div>	
+            </div>
+        </div>
+
+        <div id="breadcrumb">
+            <div class="row d-flex align-items-center">					
+                <div class="col">
+                    <div class="breadcrumb-nav">
+                        <nav aria-label="breadcrumb">
+                              <ol class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/">Home</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">All Contestants</li>
+                              </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div> 
+        </div>
+    </div>
+</section>
+
+<section id="team-1" class="wide-50 team-section division">
+    <div class="container">
+
+
+        <!-- TEAM MEMBERS HOLDER -->	
+        <div class="team-members-wrapper text-center">
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4">
+                
+                {% for contestant in all_contestants %}
+                    
+                <!-- TEAM MEMBER #1 -->
+                <div class="col">
+                    <div class="team-member wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                                                
+                        <!-- Team Member Photo -->
+                        <a href="{% url 'contestant' contestant.id %}">
+                        <div class="team-member-photo">
+                            <div class="hover-overlay"> 
+
+                                <!-- Photo -->
+                                <div style="width: 300px; height: 450px; object-fit: cover; overflow: hidden;">
+
+                                    <img class="img-fluid" src="{{contestant.reg_image.url}}" style="width: 100%; height: 100%;" alt="team-member-foto">
+                                </div>
+                                <div class="item-overlay"></div>
+
+                                <!-- Social Icons -->
+                                <div class="tm-social white--color ico-25 clearfix">
+                                    <ul class="text-center clearfix">													
+                                        <li><a href="#"><span class="flaticon-facebook"></span></a></li>
+                                        <li><a href="#"><span class="flaticon-instagram"></span></a></li>
+                                        <li><a href="#"><span class="flaticon-twitter"></span></a></li>
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </a>
+                                                                                                                                            
+                        <!-- Team Member Data -->		
+                        <div class="team-member-data">
+                            <span class="txt-upcase">{{contestant.reg_type}}</span>	
+                            <h5 class="h5-lg">{{contestant.name}}</h5>
+                        </div>	
+
+                    </div>									
+                </div>	<!-- END TEAM MEMBER #1 -->
+                {% endfor %}
+
+            </div>   <!-- End row -->
+        </div>	<!-- TEAM MEMBERS HOLDER -->	   
+
+
+    </div>	    <!-- End container -->
+</section>
+
+    
+{% endblock %}
+    
