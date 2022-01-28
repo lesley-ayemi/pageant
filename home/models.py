@@ -11,3 +11,17 @@ class Contact(models.Model):
     
     def __str__(self):
         return f"{self.name} - {self.email}"
+    
+
+class Gallery(models.Model):
+    g_images = models.ImageField(upload_to='media/uploads/gallery/', null=True)
+    
+    class Meta:
+        ordering = ['-g_images']
+        verbose_name = 'gallery'
+        verbose_name_plural = 'gallery images'
+    
+    def __str__(self) -> str:
+        return f"{self.pk} - {self.g_images}"
+    
+    

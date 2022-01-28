@@ -427,7 +427,7 @@
 		/*	Contact Form Validation
 		/*----------------------------------------------------*/
 		
-		$(".contact-form").validate({
+		$(".").validate({
 			rules:{ 
 					name:{
 						required: true,

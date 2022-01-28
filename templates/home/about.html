@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load static %}
 {% block content %}
 
 <section id="about-page" class="bg-fixed page-hero-section division">
@@ -107,7 +107,7 @@
             <!-- IMAGE BLOCK -->
             <div class="col-md-5 col-lg-6">
                 <div class="img-block right-column wow fadeInLeft" style="visibility: visible; animation-name: fadeInLeft;">
-                    <img class="img-fluid" src="images/800x700_3.jpg" alt="about-image">
+                    <img class="img-fluid" src="{% static 'images/800x700_3.jpg' %}" alt="about-image">
                 </div>
             </div>
 

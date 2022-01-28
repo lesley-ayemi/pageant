@@ -1,57 +1,27 @@
-from django.http import HttpResponse
+import os
+
+# import stripe
+from contestants.models import ContestType, ContestantForm
+from django.conf import settings
+from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.views import View
-
-from contestants.models import ContestantForm
-from home.forms import PaymentForm
-import os
 from django.views.decorators.http import require_http_methods
-# import requests
-# import environ
+from django.views.generic import TemplateView
 
-# env = environ.Env()
-# environ.Env.read_env()
+from home.forms import ContactForm, RegisterForm
+from django.core.mail import EmailMessage
 
-# Create your views here.
-def process_payment(name, email,amount,phone):
-    auth_token= os.environ.get('FLUTTER_SECRET_KEY')
-    # auth_token= env('SECRET_KEY')
-    hed = {'Authorization': 'Bearer ' + auth_token}
-    data = {
-                "tx_ref":''+str(math.floor(1000000 + random.random()*9000000)),
-                "amount":amount,
-                "currency":"KES",
-                "redirect_url":"http://127.0.0.1:8000/callback",
-                "payment_options":"card",
-                "meta":{
-                    "consumer_id":23,
-                    "consumer_mac":"92a3-912ba-1192a"
-                },
-                "customer":{
-                    "email":email,
-                    "phonenumber":phone,
-                    "name":name
-                },
-                "customizations":{
-                    "title":"Supa Electronics Store",
-                    "description":"Best store in town",
-                    "logo":"https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg"
-                }
-                }
-    url = ' https://api.flutterwave.com/v3/payments'
-    response = requests.post(url, json=data, headers=hed)
-    response=response.json()
-    link=response['data']['link']
-    return link
+from home.models import Gallery
+from django.contrib import messages
 
-@require_http_methods(['GET', 'POST'])
-def payment_response(request):
-    status = request.GET.get('status', None)
-    tx_ref = request.GET.get('tx_ref', None)
-    print(status)
-    print(tx_ref)
-    return HttpResponse('Finished')
 
+
+class SuccessView(TemplateView):
+    template_name = "success.html"
+    
+class CancelView(TemplateView):
+    template_name = "cancel.html"
 
 class HomeView(View):
     def get(self, request):
@@ -63,7 +33,90 @@ class AboutUsView(View):
     
 class ContactUsView(View):
     def get(self, request):
-        return render(request, 'home/contact.html')
+        form = ContactForm()
+        context = {
+            'form':form
+        }
+        return render(request, 'home/contact.html', context)
+    
+    def post(self, request):
+        # name = request.POST['name']
+        email = request.POST['email']
+        subject = request.POST['subject']
+        message = request.POST['message']
+        #send email
+        email = EmailMessage(
+            subject,
+            message,
+            email, 
+            settings.EMAIL_HOST_USER,
+        )
+        
+        
+class RegisterView(View):
+    def get(self, request):
+        form = RegisterForm()
+        c_types = ContestType.objects.all()
+        context = {'form':form, 'c_types':c_types}
+        return render(request, 'home/apply.html', context)
+    
+    def post(self, request):
+        c_types = ContestType.objects.all()
+        context = {'c_types':c_types, 'values':request.POST}
+        
+        name = request.POST['name']
+        phone_no = request.POST['phone_no']
+        state_of_origin = request.POST['state_of_origin']
+        state_of_residence = request.POST['state_of_residence']
+        reg_type = request.POST['reg_type']
+        address = request.POST['address']
+        reg_image = request.FILES['reg_image']
+        
+        contest_type = ContestType.objects.get(id=reg_type)
+        
+        if not name:
+            messages.error(request, 'Please Enter Your Name')
+            return render(request, 'home/apply.html', context)
+        
+        if not phone_no:
+            messages.error(request, 'Phone Number is required')
+            return render(request, 'home/apply.html', context)
+        
+        if not state_of_origin:
+            messages.error(request, 'State of origin is required')
+            return render(request, 'home/apply.html', context)
+        
+        if not state_of_residence:
+            messages.error(request, 'State of residence is required')
+            return render(request, 'home/apply.html', context)
+        
+        if not reg_type:
+            messages.error(request, 'Select A contest')
+            return render(request, 'home/apply.html', context)
+        
+        if not address:
+            messages.error(request, 'Address is required')
+            return render(request, 'home/apply.html', context)
+        
+        if not reg_image:
+            messages.error(request, 'Upload A Photo')
+            return render(request, 'home/apply.html', context)
+        
+        ContestantForm.objects.create(name=name, phone_no=phone_no, state_of_origin=state_of_origin, state_of_residence=state_of_residence, reg_type=contest_type, address=address, reg_image=reg_image)
+        messages.success(request, 'Registration Filled Successfully')
+        return redirect('index')
+        
+
+class GalleryView(TemplateView):
+    template_name = 'home/gallery.html'
+    
+    def get_context_data(self, *args, **kwargs):
+        galleries = Gallery.objects.all()
+        context = ({
+            'galleries':galleries,
+        })
+        return context
+        
     
 class AllContestantsView(View):
     def get(self, request):
@@ -73,22 +126,70 @@ class AllContestantsView(View):
         }
         return render(request, 'home/contestants/all-contestants.html', context)
 
-class ContestantView(View):
-    def get(self, request, pk):
-        data = ContestantForm.objects.get(id=pk)
-        form = PaymentForm()
-        context = {
-            'contestant':data,
-            'form':form
-        }
-        return render(request, 'home/contestants/contestant-detail.html', context)
+# class ContestantView(View):
+#     def get(self, request, pk):
+#         data = ContestantForm.objects.get(id=pk)
+#         form = PaymentForm()
+#         context = {
+#             'contestant':data,
+#             'form':form,
+#             'STRIPE_PUBLIC_KEY': settings.STRIPE_PUBLIC_KEY
+#         }
+#         return render(request, 'home/contestants/contestant-detail.html', context)
 
-    def post(self, request, pk):
-        data = ContestantForm.objects.get(id=pk)
-        form = PaymentForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['name']
-            email = form.cleaned_data['email']
-            amount = form.cleaned_data['amount']
-            phone = form.cleaned_data['phone']
-            return redirect(str(process_payment(name,email,amount,phone)))
+#     def post(self, request, pk):
+#         pass
+        # data = ContestantForm.objects.get(id=pk)
+        # form = PaymentForm(request.POST)
+        # if form.is_valid():
+        #     name = form.cleaned_data['name']
+        #     email = form.cleaned_data['email']
+        #     amount = form.cleaned_data['amount']
+        #     phone = form.cleaned_data['phone']
+        #     return redirect(str(process_payment(name,email,amount,phone)))
+
+class ContestantView(TemplateView):
+    template_name = "home/contestants/contestant-detail.html"
+
+    def get_context_data(self, pk, **kwargs):
+        contestant = ContestantForm.objects.get(id=pk)
+        context = super(ContestantView, self).get_context_data(**kwargs)
+        context.update({
+            "contestant": contestant,
+            "STRIPE_PUBLIC_KEY": settings.STRIPE_PUBLIC_KEY
+        })
+        return context
+
+import stripe
+stripe.api_key = "sk_test_51H2Hm2EMcQisWvWMHv6wIW0auJmBrvnxBQa3fLiL875grQLh46jq19EcXNpAHC55Iioc7X5ofccBmqEvTbsdYbuL000FqJlhO9"
+
+class CreateCheckoutSessionView(View):
+    def post(self, request, *args, **kwargs):
+        contestant_id = self.kwargs["pk"]
+        contestant = ContestantForm.objects.get(id=contestant_id)
+        print(contestant)
+        YOUR_DOMAIN = 'http://127.0.0.1:8000'
+        checkout_session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[
+
+                {
+                    'price_data': {
+                        'currency': 'ngn',
+                        'unit_amount': contestant.amount,
+                        'product_data': {
+                            'name': contestant.name
+                        },
+                    },
+                    'quantity': 1,
+                },
+            ],
+
+            mode='payment',
+
+            success_url=YOUR_DOMAIN + '/success/',
+
+            cancel_url=YOUR_DOMAIN + '/cancel/',
+
+        )
+        return JsonResponse({'id': checkout_session.id})

@@ -57,7 +57,7 @@ ROOT_URLCONF = 'config.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -137,4 +137,10 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-FLUTTER_SECRET_KEY = os.environ.get('FLUTTER_SECRET_KEY')
+# FLUTTER_SECRET_KEY = os.environ.get('FLUTTER_SECRET_KEY')
+
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLISHABLE_KEY')
+STRIPE_SECRET_KEY = os.environ.get('STRIPE_SECRET_KEY')
+
+PAYSTACK_SECRET = os.environ.get('PAYSTACK_SECRET_KEY')
+PAYSTACK_PUBLIC = os.environ.get('PAYSTACK_PUBLIC_KEY')

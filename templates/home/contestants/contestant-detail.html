@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block content %}
-
 <section id="careers-page" class="bg-fixed page-hero-section division">
     <div class="container">	
 
@@ -83,16 +82,63 @@
                         </p>
 
                         <!-- Small Title -->
-                        <h5 class="h5-lg">Total Votes- {{contestant.votes}}</h5>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <h5 class="h5-lg">Total Votes- {{contestant.votes}}</h5>
+
+                            </div>
+                            <div class="col-lg-6">
+                                <h5 class="h5-lg d-flex justify-content-right">
+                                    Amount - <span>&#8358;</span> {{contestant.get_display_price}}
+                                </h5>
+                            </div>
+                        </div>
 
                         <div class="row">
-                            <form action="{% url 'contestant' contestant.id %}" method="post">
-                                {% csrf_token %}
-                                <div class="col-md-6">
-                                    <button class="btn rose--btn black--hover" type="submit">Click To Vote</button>
-                                </div>
+                            <div class="col-md-6">
+                                <!-- <button class="btn rose--btn black--hover" id="checkout-button" type="button">Click To Vote</button> -->
+                                <form id="paymentForm">
 
-                            </form>
+                                    <div class="form-group">
+                                  
+                                      <label for="email">Email Address</label>
+                                  
+                                      <input type="email" id="email-address" required />
+                                  
+                                    </div>
+                                  
+                                    <!-- <div class="form-group">
+                                  
+                                      <label for="amount">Amount</label>
+                                  
+                                      <input type="tel" id="amount" required />
+                                  
+                                    </div> -->
+                                  
+                                    <div class="form-group">
+                                  
+                                      <label for="first-name">First Name</label>
+                                  
+                                      <input type="text" id="first-name" />
+                                  
+                                    </div>
+                                  
+                                    <div class="form-group">
+                                  
+                                      <label for="last-name">Last Name</label>
+                                  
+                                      <input type="text" id="last-name" />
+                                  
+                                    </div>
+                                  
+                                    <div class="form-submit">
+                                  
+                                      <button type="submit" onclick="payWithPaystack()"> Pay </button>
+                                  
+                                    </div>
+                                  
+                                  </form>
+                            </div>
                             
                         </div>
 
@@ -146,186 +192,8 @@
 
 
                     <!-- POST COMMENTS -->
-                    <div class="post-comments">
-                        <div class="comments-wrapper">
-
-
-                            <!-- Title -->	
-                            <h5 class="h5-xl">4 Comments</h5>
-
-
-                            <!-- COMMENT #1 -->
-                            <div class="comment d-flex">
-
-                                <!-- Comment-1 Avatar -->
-                                  <img src="images/comment-author-1.jpg" alt="comment-avatar">
-
-                                  <!-- Comment-Body -->
-                                  <div class="comment-body">
-
-                                      <!-- Comment-1 Meta -->
-                                     <div class="comment-meta">
-                                         <h6 class="h6-lg">Tucker</h6>						
-                                           <span class="comment-date">5 days ago - </span>
-                                        <span class="btn-reply ico-20">
-                                            <a href="#leave-comment"><span class="flaticon-23"></span> Reply</a>
-                                        </span>
-                                    </div>
-                                    
-                                    <!-- Comment-1 Text -->	
-                                       <p class="p-lg mb-40">Etiam sapien sem magna at vitae pulvinar congue augue egestas pretium neque 
-                                           undo viverra suscipit egestas magna porta ratione, mollis risus lectus porta rutrum aenean primis 
-                                           in augue luctus neque purus ipsum neque dolor primis purus efficitur an ipsum primis cubilia
-                                       </p>
-
-                                       <hr>
-
-                                       <!-- Nested Comment -->
-                                    <div class="comment d-flex">
-
-                                        <!-- Nested Avatar -->
-                                          <a href="#" class="pr-3">
-                                            <img src="images/comment-author-2.jpg" alt="comment-avatar">
-                                          </a>
-
-                                          <div class="comment-body">
-
-                                              <!-- Comment-2 Meta -->
-                                             <div class="comment-meta">
-                                                   <h6 class="h6-lg">Cindy Harper</h6>
-                                                   <span class="comment-date">6 days ago - </span>
-                                                <span class="btn-reply ico-20">
-                                                    <a href="#leave-comment"><span class="flaticon-23"></span> Reply</a>
-                                                </span>
-                                            </div>
-
-                                            <!-- Comment-2 Text -->	
-                                               <p class="p-lg">Etiam sapien magna at vitae pulvinar congue egestas a pretium neque viverra
-                                                   suscipit porta ratione, mollis risus lectus porta aliquet lorem puruss mollis 
-                                               </p>
-
-                                          </div>	
-
-                                    </div>	<!-- End Nested Comment -->
-
-
-                                  </div>
-
-
-                            </div>	<!-- END COMMENT #1 -->	
-
-
-                            <hr>	
-
-
-                            <!-- COMMENT #3 -->
-                            <div class="comment d-flex">
-
-                                <!-- Comment Avatar -->
-                                  <img src="images/comment-author-3.jpg" alt="comment-avatar">
-
-                                  <!-- Comment Body -->
-                                 <div class="comment-body">
-
-                                     <!-- Comment Meta -->
-                                     <div class="comment-meta">
-                                           <h6 class="h6-lg">Anne Steiner</h6>
-                                           <span class="comment-date">13 days ago - </span>
-                                        <span class="btn-reply ico-20">
-                                            <a href="#leave-comment"><span class="flaticon-23"></span> Reply</a>
-                                        </span>
-                                    </div>
-                                    
-                                    <!-- Comment Text -->	
-                                       <p class="p-lg">Porta ratione, mollis risus lectus porta rutrum arcu aenean primis in augue luctus and
-                                           neque purus ipsum neque dolor primis libero tempus, tempor posuere ligula varius an impedit enim
-                                           tempor vitae pulvinar at congue augue egestas praesent aliquet 
-                                       </p>
-
-                                   </div>	<!-- End Comment Body -->
-
-                            </div>	<!-- END COMMENT #3 -->	
-
-
-                            <hr>
-
-
-                            <!-- COMMENT #4 -->
-                            <div class="comment d-flex">
-
-                                <!-- Comment Avatar -->
-                                  <img src="images/comment-author-4.jpg" alt="comment-avatar">
-
-                                  <!-- Comment Body -->
-                                 <div class="comment-body">
-
-                                     <!-- Comment Meta -->
-                                     <div class="comment-meta">
-                                           <h6 class="h6-lg">Nikki T. Johnson</h6>
-                                           <span class="comment-date">42 days ago - </span>
-                                        <span class="btn-reply ico-20">
-                                            <a href="#leave-comment"><span class="flaticon-23"></span> Reply</a>
-                                        </span>
-                                    </div>
-                                    
-                                    <!-- Comment Text -->	
-                                       <p class="p-lg">Etiam sapien sem magna at vitae pulvinar congue augue egestas pretium neque undo 
-                                           viverra suscipit egestas magna porta ratione, mollis risus lectus porta rutrum arcu
-                                       </p>
-
-                                   </div>	<!-- End Comment Body -->
-
-                            </div>	<!-- END COMMENT #4 -->		
-
-
-                            <hr>
-
-
-                            <!-- COMMENT FORM -->
-                            <div id="leave-comment">
-                                
-                                <!-- Title -->
-                                <h5 class="h5-xl">Leave a Comment</h5>
-                                
-                                <!-- Text -->
-                                <p class="p-lg">Your email address will not be published. Required fields are marked *</p>
-
-                                <form name="commentForm" class="row comment-form" novalidate="novalidate">
-
-                                    <div class="col-md-12 input-message">
-                                        <p class="black--color">Add Comment *</p>
-                                        <textarea class="form-control message" name="message" rows="6" placeholder="Enter Your Comment Here* ..." required=""></textarea>
-                                    </div> 
-                                                        
-                                    <div class="col-md-12">
-                                        <p class="black--color">Name*</p>
-                                        <input type="text" name="name" class="form-control name" placeholder="Enter Your Name*" required=""> 
-                                    </div>
-                                            
-                                    <div class="col-md-12">
-                                        <p class="black--color">Email*</p>
-                                        <input type="email" name="email" class="form-control email" placeholder="Enter Your Email*" required=""> 
-                                    </div>
-                                                     
-                                    <!-- Contact Form Button -->
-                                    <div class="col-lg-12 form-btn"> 						                 
-                                        <button type="submit" class="btn rose--btn tra-black--hover submit">
-                                           Post Comment
-                                        </button> 
-                                    </div>
-                                                                                  
-                                    <!-- Contact Form Message -->
-                                    <div class="col-md-12 comment-form-msg text-center">
-                                        <div class="sending-msg"><span class="loading"></span></div>
-                                    </div>  
-                                                              
-                                </form>									
-                            
-                            </div>	<!-- END COMMENT FORM -->
-
-
-                        </div>	<!-- End comments-wrapper -->
-                    </div>	<!-- END POST COMMENTS -->
+                    
+                    <!-- END POST COMMENTS -->
 
 
                  </div>
@@ -335,6 +203,87 @@
          </div>    <!-- End row -->
      </div>    <!-- End container -->
 </section>
+{% csrf_token %}
+
+
+{% block scripts %}
+<script type="text/javascript">
+    const paymentForm = document.getElementById('paymentForm');
+
+paymentForm.addEventListener("submit", payWithPaystack, false);
+
+function payWithPaystack(e) {
+
+  e.preventDefault();
+
+  let handler = PaystackPop.setup({
+
+    key: 'pk_test_3a5d404a8cb4d44d0e62961388ca29e1084c7887', // Replace with your public key
+
+    email: document.getElementById("email-address").value,
+
+    amount: "{{contestant.amount}}" * 100,
+    currency: 'NGN', 
+
+    ref: ''+Math.floor((Math.random() * 1000000000) + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+
+    // label: "Optional string that replaces customer email"
+
+    onClose: function(){
+
+      alert('Window closed.');
+
+    },
+
+    callback: function(response){
+        window.location = "http://127.0.0.1:8000" + response.reference;
+
+      //let message = 'Payment complete! Reference: ' + response.reference;
+        
+      //alert(message);
+
+    }
+
+  });
+
+  handler.openIframe();
+
+}
+</script>
+<!-- <script type="text/javascript">
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+    // Create an instance of the Stripe object with your publishable API key
+    var stripe = Stripe("pk_test_51H2Hm2EMcQisWvWMWrtkOXejjtDLubkoZRZtNWlxckjxsPOopoqWUnsV8pJa6iBPFmX9jUzyGbHTyVYJJjKoawFf00VCCx7nBg");
+    var checkoutButton = document.getElementById("checkout-button");
+    checkoutButton.addEventListener("click", function () {
+      fetch("{% url 'create-checkout-session' contestant.id %}", {
+        method: "POST",
+        headers: {
+            'X-CSRFToken': csrftoken
+        }
+      })
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (session) {
+          return stripe.redirectToCheckout({ sessionId: session.id });
+        })
+        .then(function (result) {
+          // If redirectToCheckout fails due to a browser or network
+          // error, you should display the localized error message to your
+          // customer using error.message.
+          if (result.error) {
+            alert(result.error.message);
+          }
+        })
+        .catch(function (error) {
+          console.error("Error:", error);
+        });
+    });
+
+  </script> -->
+{% endblock scripts %}
     
-{% endblock content %}
+    
+{% endblock %}
     
