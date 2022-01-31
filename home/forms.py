@@ -14,8 +14,3 @@ class ContactForm(forms.Form):
     email = forms.EmailField()
     subject = forms.CharField(max_length=200)
     message = forms.Textarea()
-    
-class RegisterForm(forms.ModelForm):
-    class Meta:
-        model = ContestantForm
-        fields = '__all__'

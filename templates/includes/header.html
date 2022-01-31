@@ -1,11 +1,13 @@
 {% load static %}
 
-{% if 'all-contestants/' in request.path %}
-<header id="header" class="header white-menu navbar-dark">
-
+<header id="header" 
+{% if '/' == request.path %}
+class="header tra-menu navbar-light"
 {% else %}
-<header id="header" class="header tra-menu navbar-light">
+class="header white-menu navbar-dark"
 {% endif %}
+>
+
   
     <div class="header-wrapper">
 
@@ -32,6 +34,8 @@
                   <nav class="wsmenu clearfix">
                     <ul class="wsmenu-list">
 
+                        <!-- SIMPLE NAVIGATION LINK -->
+                        <li class="nl-simple" aria-haspopup="true"><a href="{% url 'index' %}">Home</a></li>
 
                         <!-- DROPDOWN MENU -->
                           <li aria-haspopup="true"><a href="{% url 'about' %}">About</a>
@@ -55,8 +59,8 @@
 
 
                         <!-- HEADER BUTTON -->
-                        <li class="nl-simple" aria-haspopup="true">
-                            <a href="{% url 'contact-us' %}" class="btn tra-white--btn rose--hover last-link">Contacts</a>
+                        <li class="nl-simple" aria-haspopup="true" style="color: black;">
+                            <a href="{% url 'contact-us' %}" {% if '/' == request.path %} class="btn tra-white--btn rose--hover last-link" {% else %} class="btn rose--btn last-link" {% endif %}>Contacts</a>
                         </li> 
 
 
@@ -70,3 +74,4 @@
 
     </div>     <!-- End header-wrapper -->
 </header>
+

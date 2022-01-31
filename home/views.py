@@ -9,7 +9,7 @@ from django.views import View
 from django.views.decorators.http import require_http_methods
 from django.views.generic import TemplateView
 
-from home.forms import ContactForm, RegisterForm
+from home.forms import ContactForm
 from django.core.mail import EmailMessage
 
 from home.models import Gallery
@@ -55,9 +55,8 @@ class ContactUsView(View):
         
 class RegisterView(View):
     def get(self, request):
-        form = RegisterForm()
         c_types = ContestType.objects.all()
-        context = {'form':form, 'c_types':c_types}
+        context = {'c_types':c_types}
         return render(request, 'home/apply.html', context)
     
     def post(self, request):
