@@ -40,10 +40,26 @@ class ContactUsView(View):
         return render(request, 'home/contact.html', context)
     
     def post(self, request):
+        form = ContactForm()
+        context = {
+            'form':form
+        }
         # name = request.POST['name']
         email = request.POST['email']
         subject = request.POST['subject']
         message = request.POST['message']
+        
+        if not email:
+            messages.error(request, 'Email cannot be empty')
+            return render(request, 'home/contact.html', context)
+        
+        if not subject:
+            messages.error(request, 'Subject cannot be empty')
+            return render(request, 'home/contact.html', context)
+        
+        if not message:
+            messages.error(request, 'Message Body cannot be empty')
+            return render(request, 'home/contact.html', context)
         #send email
         email = EmailMessage(
             subject,
@@ -69,7 +85,7 @@ class RegisterView(View):
         state_of_residence = request.POST['state_of_residence']
         reg_type = request.POST['reg_type']
         address = request.POST['address']
-        reg_image = request.FILES['reg_image']
+        reg_image = request.FILES.get('reg_image')
         
         contest_type = ContestType.objects.get(id=reg_type)
         

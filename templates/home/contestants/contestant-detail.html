@@ -54,7 +54,7 @@
 
                          <!-- Post Tag -->
                         <p class="post-tag">
-                            <a href="javascript:void(0)">{{contestant.name}}</a> <span>|</span> Manicure, Trends <span>|</span> {{contestant.date_reg|date:"D d M Y"}}
+                            <a href="javascript:void(0)">{{contestant.name}}</a> <span>|</span> Registered on <span>|</span> {{contestant.date_reg|date:"D d M Y"}}
                         </p>	
 
                     </div>
@@ -80,15 +80,22 @@
                             </div>
                             <div class="col-lg-6">
                                 <h5 class="h5-lg d-flex justify-content-right">
-                                    Amount - <span>&#8358;</span> {{contestant.get_display_price}}
+                                    Amount - <span>&#8358;</span> {{contestant.amount}}
                                 </h5>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-md-6">
+                            <div class="col-md-12">
+                              <h5 class="h5-lg d-flex justify-content-center">
+                                <code>
+                                  *Pay The required Amount for this contestant "{{contestant.name|upper}}",
+                                  also please add the contestant name as part of the description when paying
+
+                                </code>
+                              </h5>
                                 <!-- <button class="btn rose--btn black--hover" id="checkout-button" type="button">Click To Vote</button> -->
-                                <form id="paymentForm">
+                                <!-- <form id="paymentForm">
 
                                     <div class="form-group">
                                   
@@ -97,14 +104,6 @@
                                       <input type="email" id="email-address" required />
                                   
                                     </div>
-                                  
-                                    <!-- <div class="form-group">
-                                  
-                                      <label for="amount">Amount</label>
-                                  
-                                      <input type="tel" id="amount" required />
-                                  
-                                    </div> -->
                                   
                                     <div class="form-group">
                                   
@@ -128,7 +127,7 @@
                                   
                                     </div>
                                   
-                                  </form>
+                                  </form> -->
                             </div>
                             
                         </div>
@@ -191,7 +190,7 @@
 
 
 {% block scripts %}
-<script type="text/javascript">
+<!-- <script type="text/javascript">
     const paymentForm = document.getElementById('paymentForm');
 
 paymentForm.addEventListener("submit", payWithPaystack, false);
@@ -233,7 +232,7 @@ function payWithPaystack(e) {
   handler.openIframe();
 
 }
-</script>
+</script> -->
 <!-- <script type="text/javascript">
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     // Create an instance of the Stripe object with your publishable API key

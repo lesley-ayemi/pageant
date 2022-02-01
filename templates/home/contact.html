@@ -64,12 +64,12 @@
 
                  <div class="col-md-12">
                      <div class="form-holder mb-40">
-                        <form class="row contact-form" method="post" novalidate="novalidate">
-                                                                                
+                        <form class="row contact-form" method="post" action="{% url 'contact-us' %}">
+                            {% csrf_token %}                                                     
                             <!-- Form Input -->
-                            <div class="col-lg-6">
+                            <!-- <div class="col-lg-6">
                                 <input type="text" name="full_name" class="form-control name" placeholder="Your Name*"> 
-                            </div>
+                            </div> -->
                               
                             <!-- Form Input -->        
                             <div class="col-lg-6">
@@ -77,13 +77,13 @@
                             </div>
 
                             <!-- Form Input -->   
-                            <div class="col-md-12">
-                                <input type="text" name="title" class="form-control subject" placeholder="What's this about?"> 
+                            <div class="col-md-6">
+                                <input type="text" name="subject" class="form-control subject" placeholder="What's this about?"> 
                             </div>
 
                             <!-- Form Textarea -->	        
                             <div class="col-md-12">
-                                <textarea name="description" class="form-control message" rows="6" placeholder="Your Message ..."></textarea>
+                                <textarea name="message" class="form-control message" rows="6" placeholder="Your Message ..."></textarea>
                             </div> 
                                                         
                             <!-- Form Button -->

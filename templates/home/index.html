@@ -62,7 +62,7 @@
 
 								<!-- Text -->
 								<p class="p-lg">
-									Are your sights set on the stars? Can you see yourself living in Hollywood, catching another lens on the red carpet? Well get ready for more than you could ever dream of, all wrapped up in the life-changing experience that is Miss Epitome {% now 'Y' %}.
+									Are your sights set on the stars? Can you see yourself living in Nollywood, catching another lens on the red carpet? Well get ready for more than you could ever dream of, all wrapped up in the life-changing experience that is Miss Epitome {% now 'Y' %}.
 								</p>
 								<p class="p-lg">
 									Step onto the stage that can pave the way for the rest of your life as we bring together women from across the nation to vie for the ultimate title of Miss Epitome. This is the coveted crown globally that inspires young women to claim their beauty and voice!
@@ -160,15 +160,17 @@
 					<!-- IMAGES HOLDER -->
 					<div class="row row-cols-1 row-cols-sm-2 row-cols-lg-4">
 
-
+						
+						{% for gallery in gallery_posts %}
+							
 						<!-- IMAGE #1 -->
 					  	<div class="col">
 					  		<div id="img-2-1" class="gallery-image">
-					  			<a class="image-link" href="{% static 'images/gallery/700x700_1.jpg' %}">
+					  			<a class="image-link" href="{{gallery.g_images.url}}">
 							  		<div class="hover-overlay"> 
 
 							  			<!-- Image -->
-										<img class="img-fluid" src="{% static 'images/gallery/700x700_1.jpg' %}" alt="gallery-image" />			
+										<img class="img-fluid" src="{{gallery.g_images.url}}" alt="gallery-image" />			
 										<div class="item-overlay"></div>	
 
 										<!-- Image Description -->
@@ -183,7 +185,7 @@
 						  		</a>
 							</div>
 						</div>
-
+						{% endfor %}
 
 
 					</div>	<!-- END IMAGES HOLDER -->
