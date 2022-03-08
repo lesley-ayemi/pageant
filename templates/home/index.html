@@ -176,8 +176,14 @@
 										<!-- Image Description -->
 										<div class="image-description white--color">
 											<div class="image-caption">
-												<p class="txt-upcase">Art, Care</p>
-												<h5 class="h5-lg">Nail Art Design</h5>		
+												<!-- <p class="txt-upcase">Art, Care</p> -->
+												
+												{% if gallery.captions %}
+												<h5 class="h5-lg">{{gallery.captions}}</h5>
+												{% else %}		
+													
+												{% endif %}
+													
 											</div>																				 
 										</div> 			
 										
@@ -273,10 +279,10 @@
 							<div class="section-title title-01 mb-70">	
 
 								<!-- Section ID -->	
-					 			<span class="section-id">Nails And Beyond…</span>	
+					 			<!-- <span class="section-id">Nails And Beyond…</span>	 -->
 
 								<!-- Title -->	
-								<h2 class="h2-lg">Nails For Every Budget</h2>	
+								<h2 class="h2-lg">Top 3 Leading Contestant</h2>	
 									
 							</div>	
 						</div>
@@ -365,12 +371,12 @@
 													
 								<!-- BRAND LOGO IMAGE -->
 								<div class="brand-logo">
-									<img class="img-fluid" src="{% static 'images/brand-1.png' %}" alt="brand-logo" />
+									<img class="img-fluid" src="{% static 'nelxpress.png' %}" style="padding-top: 60px;" alt="brand-logo" />
 								</div>
 													
 								<!-- BRAND LOGO IMAGE -->
 								<div class="brand-logo">
-									<img class="img-fluid" src="{% static 'images/brand-2.png' %}" alt="brand-logo" />
+									<img class="img-fluid" src="{% static 'nature.png' %}" style="padding-top: 50px;" alt="brand-logo" />
 								</div>
 													
 								<!-- BRAND LOGO IMAGE -->

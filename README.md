@@ -25,8 +25,10 @@ A Pageant beauty contest for voting and registration
 * cp env.example env
 * pip install -r requirements.txt
 * setup a postgresql database and add to your env db_name
+* python3 manage.py makemigration
+* python3 manage.py migrate
 
 ```
-Python3 manage.py runserver
+python3 manage.py runserver
 ```
 

@@ -15,6 +15,7 @@ class Contact(models.Model):
 
 class Gallery(models.Model):
     g_images = models.ImageField(upload_to='media/uploads/gallery/', null=True)
+    captions = models.CharField(max_length=255, null=True, blank=True)
     date_published = models.DateTimeField(auto_now_add=True, null=True)
     
     class Meta:
